@@ -1,35 +1,60 @@
 
-document.getElementById('signButton').addEventListener("click", (e)=> {
+
+document.getElementById('signButton').addEventListener("click", ()=> {
 
     const signEmail = document.getElementById('signEmail').value;
     const signUsername = document.getElementById('signUsername').value;
     const signPassword = document.getElementById('signPassword').value;
 
     //check if user is in the data base or not
-    checkParamsSign(signEmail,signUsername,signPassword,e);
+    checkParamsSign(signEmail,signUsername,signPassword);
 
 
 })
 
-function checkParamsSign(email,username,password,e) {
+function checkParamsSign(email,username,password) {
 
-    if(username == 's' && password == 'b') {
+    if(email && username && password) {
 
-        rightParamsSign('İşlem Başarıyla Gerçekleşti ' + username);
+        fetch('/sign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    email: email,
+                    username: username,
+                    password: password
+                }
+            })
+        }).then( (response)=> {
 
-    } else {
+            if(response.status==200) {
 
-        wrongParamsSign('Kullanıcı Adı veya Email Geçersiz');
-        e.preventDefault();
+                window.location.href = '/';
+
+            } else {
+
+                alert('Yanlışlık var');
+
+            }
+
+        });
+
     }
 
 }
+
+
+
 
 function wrongParamsSign(message) {
 
     console.log(message)
 
 }
+
 
 function rightParamsSign(message) {
 

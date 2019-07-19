@@ -1,11 +1,23 @@
 const express = require('express');
-const validator = require('validator');
 const path = require('path');
+
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+
+const connectionURL = 'mongodb://127.0.0.1:27017'
+const databaseName = 'mini-media-users'
 
 const app = express();
 const port = process.env.PORT || 3000
 
 const fd = path.join(__dirname,'../public')
+
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
 
 app.use(express.static(fd));
 
@@ -20,6 +32,43 @@ app.get('', (req,res)=> {
 app.get('/sign', (req,res)=> {
 
     res.render('sign');
+
+})
+
+app.post('/sign', (req,res)=> {
+
+    const data = req.body
+    MongoClient.connect(connectionURL,
+        {useNewUrlParser: true}, (error,client)=> {
+    
+            if(error) {
+    
+                return console.log(error);
+    
+            }
+
+            const db = client.db(databaseName);
+
+            db.collection('users').insertOne( {
+
+                email : data.user.email,
+                username: data.user.username,
+                password:data.user.password
+
+            } ,
+            (error,result) => {
+                
+                if(error) {
+                    //return res.sendStatus(201);
+                }
+                
+                //res.sendStatus(200);
+                res.redirect('/');
+
+            })
+    
+    });
+
 
 })
 

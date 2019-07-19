@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "hbs": "^4.0.4",
+    "mongodb": "^3.3.0-beta2",
     "validator": "^11.1.0"
   },
   "devDependencies": {},
