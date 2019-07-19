@@ -36,7 +36,9 @@ function checkParamsSign(email,username,password) {
 
             } else {
 
-                alert('Kullanıcı Adı veya Email Zaten Alınmış');
+                document.getElementById('alertAlreadyDiv').style.display = "initial";
+
+                setTimeout(()=> {document.getElementById('alertAlreadyDiv').style.display = "none";},2000)
 
             }
 

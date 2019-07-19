@@ -13,15 +13,33 @@ document.getElementById('loginButton').addEventListener("click", ()=> {
 
 function checkParamsLogin(username,password) {
 
-    if(username == 'a' && password == 'b') {
+    if(username && password) {
 
-        rightParamsLogin('Hoşgeldiniz ' + username);
+        fetch('', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    username: username,
+                    password: password
+                }
+            })
+        }).then((response)=> {
 
-    } else {
+            if(response.status==200) {
+                console.log('Başardık arkadaşlar')
+                window.location.href = '/home';
 
-        wrongParamsLogin('Kullanıcı Adı veya Şifre Yanlış')
+            } else {
+
+            }
+
+        });
 
     }
+
 
 }
 

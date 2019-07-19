@@ -106,11 +106,45 @@ app.post('/sign', (req,res)=> {
 
 })
 
-function checkDatabase(data,db) {
+app.post('', (req,res)=>{
 
+    const data = req.body
+    MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
     
+        if(error) {
+    
+            return console.log(error);
+    
+        }
 
-}
+        
+        const db = client.db(databaseName);
+        console.log( data.user.username, data.user.password)
+        db.collection('users').findOne({
+
+            username : data.user.username
+
+            }, (error,result)=> {
+                console.log(result)
+                if(result) {
+
+                    res.sendStatus(200);
+
+                } else {
+
+                    res.sendStatus(301);
+
+                }
+                
+            
+
+            });
+
+            
+        
+    
+    })
+})
 
 
 app.get('/home', (req,res)=> {
