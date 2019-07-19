@@ -1,8 +1,15 @@
 const express = require('express');
 const validator = require('validator');
+const path = require('path');
 
 const app = express();
+const port = process.env.PORT || 3000
 
+const fd = path.join(__dirname,'../public')
+
+app.use(express.static(fd));
+
+app.set('view engine','hbs');
 
 app.get('', (req,res)=> {
 
@@ -10,14 +17,14 @@ app.get('', (req,res)=> {
 
 })
 
-app.get('/sign', (req,res)=> {
+app.get('/home', (req,res)=> {
 
-    res.render('sign');
+    res.render('home');
 
 })
 
-app.get('home', (req,res)=> {
+app.listen(port, () => {
 
-    res.render('home');
+    console.log("Server is up and running on port " + port);
 
 })

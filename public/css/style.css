@@ -1,0 +1,27 @@
+
+body {
+
+    background-color: #111;
+
+}
+
+.mainLoginDiv {
+
+    background-color: #444;
+    width: 500px;
+    margin: 100px auto;
+    padding: 50px;
+
+}
+
+.whiteText {
+
+    color: #CCC;
+
+}
+
+.patop {
+
+    padding-top: 25px;
+
+}
