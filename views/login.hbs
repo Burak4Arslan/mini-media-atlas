@@ -17,19 +17,19 @@
 <div class="mainLoginDiv">
     <div class="form-group">
         <label for="exampleInputEmail1" class="whiteText">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <input type="email" class="form-control" id="loginUsername" aria-describedby="emailHelp" placeholder="Enter Username">
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="whiteText">Password</label>
-        <input type="password" class="form-control whiteText" id="exampleInputPassword1" placeholder="Password">
+        <input type="password" class="form-control whiteText" id="loginPassword" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-light">Log in</button>
-    <!-- Button trigger modal -->
+    <button type="submit" class="btn btn-light" id="loginButton">Log in</button>
+
     <div class="patop">
         <span class="whiteText">Don't have an account?</span>
-        <button type="button" class="badge badge-light" data-toggle="modal" data-target="#exampleModal">
+        <a class="badge badge-light" href="/sign">
         Sign in
-        </button>
+        </a>
     </div>
 </div>
 
@@ -38,43 +38,8 @@
 
 
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Sign in</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Username</label>
-                <input type="email" class="form-control" id="inputSignUsername" aria-describedby="emailHelp" placeholder="Enter a Username">
-                <small class="form-text text-muted">You'll use this to log in</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="inputSignEmail" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="inputSignPassword" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary"  data-dismiss="modal">Sign in</button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-    <script src="/js/app.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/sign.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

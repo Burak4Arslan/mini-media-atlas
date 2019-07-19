@@ -17,6 +17,12 @@ app.get('', (req,res)=> {
 
 })
 
+app.get('/sign', (req,res)=> {
+
+    res.render('sign');
+
+})
+
 app.get('/home', (req,res)=> {
 
     res.render('home');
