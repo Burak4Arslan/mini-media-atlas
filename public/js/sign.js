@@ -36,7 +36,7 @@ function checkParamsSign(email,username,password) {
 
             } else {
 
-                alert('Yanlışlık var');
+                alert('Kullanıcı Adı veya Email Zaten Alınmış');
 
             }
 

@@ -38,39 +38,80 @@ app.get('/sign', (req,res)=> {
 app.post('/sign', (req,res)=> {
 
     const data = req.body
-    MongoClient.connect(connectionURL,
-        {useNewUrlParser: true}, (error,client)=> {
+    MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
     
-            if(error) {
+        if(error) {
     
-                return console.log(error);
+            return console.log(error);
     
-            }
+        }
 
-            const db = client.db(databaseName);
+        
+        const db = client.db(databaseName);
+        
+        db.collection('users').findOne({
 
-            db.collection('users').insertOne( {
+            username : data.user.username
 
-                email : data.user.email,
-                username: data.user.username,
-                password:data.user.password
+            }, (error,result)=> {
 
-            } ,
-            (error,result) => {
-                
-                if(error) {
-                    //return res.sendStatus(201);
+                if(result) {
+
+                    res.sendStatus(301);
+
                 }
+                else {
+
+                    db.collection('users').findOne({
+
+                        email: data.user.email
+
+                    },(error,result)=> {
+                        if(result) {
+
+                            res.sendStatus(301);
+        
+                        }
+                        else {
+                            //Databasete Bulunmadı eklenecek
+                            db.collection('users').insertOne( {
+
+                                email : data.user.email,
+                                username: data.user.username,
+                                password:data.user.password
                 
-                //res.sendStatus(200);
-                res.redirect('/');
+                            } ,
+                            (error,result) => {
+                                    
+                                if(error) {
+                                    return res.sendStatus(301);
+                                }
+                                    
+                                res.sendStatus(200);
+                            })
+                        }
+
+                    })
+                    
+
+                }
 
             })
+
+            
+        
     
-    });
+    })
 
 
 })
+
+function checkDatabase(data,db) {
+
+    
+
+}
+
 
 app.get('/home', (req,res)=> {
 
