@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+var myUser;
 
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
@@ -119,26 +120,28 @@ app.post('', (req,res)=>{
 
         
         const db = client.db(databaseName);
-        console.log( data.user.username, data.user.password)
+        
         db.collection('users').findOne({
 
-            username : data.user.username
+            username : data.user.username,
+            password: data.user.password
 
-            }, (error,result)=> {
-                console.log(result)
+        }, (error,result)=> {
+            
                 if(result) {
 
-                    res.sendStatus(200);
+                res.sendStatus(200);
+                myUser = result; 
+                console.log(myUser);
+            } else {
 
-                } else {
+                res.sendStatus(301);
 
-                    res.sendStatus(301);
-
-                }
+            }
                 
             
 
-            });
+        });
 
             
         
@@ -149,7 +152,16 @@ app.post('', (req,res)=>{
 
 app.get('/home', (req,res)=> {
 
-    res.render('home');
+
+    if(myUser) {
+        res.render('home', {
+
+            name : myUser.username
+
+        });
+    } else {
+        res.redirect('/');
+    }
 
 })
 
