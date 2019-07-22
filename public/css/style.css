@@ -48,25 +48,49 @@ body {
 
 }
 
-.logoutDiv {
+#postButton {
 
-    width: 300px;
-    margin: 100px auto;
-    display: grid;
+    margin-bottom: 40px;
 
 }
 
-.logoutSpan {
-
-    color: #FC3723;
+#ulList {
+    padding: 20px;
+    background-color: darkkhaki;
 
 }
 
-.logoutButton {
+.usernameList {
 
-    background-color: aquamarine;
-    opacity: 0.7;
-    border: black solid;
+    list-style-type: none;
+
 }
 
+.postList {
 
+    margin-top: 10px;
+    list-style-type: none;
+    margin-left: 30px;
+}
+
+.inli {
+
+    border: solid red 1px;
+    margin-bottom: 40px;
+    background-color: darksalmon;
+
+}
+
+.middle {
+
+    width: 100px;
+    margin: auto;
+
+}
+
+.middleh {
+
+    width: 440px;
+    margin: auto;
+
+}

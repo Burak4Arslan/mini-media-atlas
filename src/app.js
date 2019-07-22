@@ -13,9 +13,6 @@ const port = process.env.PORT || 3000
 
 const fd = path.join(__dirname,'../public')
 
-// Parse URL-encoded bodies (as sent by HTML forms)
-//app.use(express.urlencoded());
-
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
@@ -122,8 +119,6 @@ app.post('', (req,res)=>{
             return console.log(error);
     
         }
-
-        
         const db = client.db(databaseName);
         
         db.collection('users').findOne({
@@ -132,57 +127,91 @@ app.post('', (req,res)=>{
             password: data.user.password
 
         }, (error,result)=> {
-            
                 if(result) {
-
-                res.sendStatus(200);
+                res.redirect('/home');
                 myUser = result;
             } else {
-
                 res.sendStatus(301);
-
             }
-                
-            
-
         });
+    })
+})
 
-            
-        
+
+app.post('/home', (req,res)=>{
+
+    const data = req.body;
+    data.post.username = myUser.username;
+    MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
     
+        if(error) {
+    
+            return console.log(error);
+    
+        }
+
+        
+        const db = client.db(databaseName);
+        
+        db.collection('posts').insertOne( {
+
+            username : data.post.username,
+            post : data.post.post
+
+        }).then( ()=> {
+
+            res.sendStatus(200);
+
+        })
     })
 })
 
 
 app.get('/home', (req,res)=> {
 
+    
 
-    if(myUser) {
+    if(myUser.username) {
+
         res.render('home', {
-
             name : myUser.username
-
         });
+
+        
+        
     } else {
         res.redirect('/');
+        
     }
+    // res.render('/home', {
+
+    //     name : myUser.username,
+    //     posts : myPosts
+    // });
 
 })
 
-// app.get('/'+`${myUser.username}`, (req,res)=> {
+app.get('/home/posts', (req,res) => {
 
+    let myPosts;
 
-//     if(myUser) {
-//         res.render('home', {
+    MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
+    
+        if(error) {
+    
+            return console.log(error);
+    
+        }
+        const db = client.db(databaseName);
+        myPosts = allPost = db.collection('posts').find({}).toArray((error,posts)=> {
+            myPosts = posts;
+            res.send({ posts: myPosts });
+        })
 
-//             name : myUser.username
+    });
 
-//         });
-//     } else {
-//         res.redirect('/');
-//     }
+}) 
 
-// })
 
 app.listen(port, () => {
 

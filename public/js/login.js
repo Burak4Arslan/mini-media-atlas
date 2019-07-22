@@ -29,8 +29,9 @@ function checkParamsLogin(username,password) {
         }).then((response)=> {
 
             if(response.status==200) {
-                console.log('Başardık arkadaşlar')
-                window.location.href = '/home';
+
+                //console.log(response);
+                window.location.href = response.url;
 
             } else {
 
