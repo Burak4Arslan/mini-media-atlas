@@ -30,7 +30,6 @@ function checkParamsLogin(username,password) {
 
             if(response.status==200) {
 
-                //console.log(response);
                 window.location.href = response.url;
 
             } else {

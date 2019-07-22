@@ -4,7 +4,6 @@ writer();
 
 function writer() {
     let posts;
-    // fetch('/home/posts').then(res => console.log(res));
     const re = fetch('/home/posts').then(response=>response.json())
     re.then( (data) => { posts = data}).finally(()=> {
         let i=0;
