@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-var myUser;
+var myUser = {};
 
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000
 const fd = path.join(__dirname,'../public')
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded());
+//app.use(express.urlencoded());
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
@@ -26,7 +26,12 @@ app.set('view engine','hbs');
 
 app.get('', (req,res)=> {
 
-    res.render('login');
+    if(!myUser.username) {
+        res.render('login');
+    } else {
+        myUser = {};
+        res.render('login');
+    }
 
 })
 
@@ -131,8 +136,7 @@ app.post('', (req,res)=>{
                 if(result) {
 
                 res.sendStatus(200);
-                myUser = result; 
-                console.log(myUser);
+                myUser = result;
             } else {
 
                 res.sendStatus(301);
@@ -164,6 +168,21 @@ app.get('/home', (req,res)=> {
     }
 
 })
+
+// app.get('/'+`${myUser.username}`, (req,res)=> {
+
+
+//     if(myUser) {
+//         res.render('home', {
+
+//             name : myUser.username
+
+//         });
+//     } else {
+//         res.redirect('/');
+//     }
+
+// })
 
 app.listen(port, () => {
 

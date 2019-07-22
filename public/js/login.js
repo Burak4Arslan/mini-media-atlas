@@ -34,6 +34,10 @@ function checkParamsLogin(username,password) {
 
             } else {
 
+                document.getElementById('alertAlreadyDiv').style.display = "initial";
+
+                setTimeout(()=> {document.getElementById('alertAlreadyDiv').style.display = "none";},2000)
+
             }
 
         });
