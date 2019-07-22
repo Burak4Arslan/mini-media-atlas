@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+
 var myUser = {};
 
 const mongodb = require('mongodb');
@@ -81,7 +83,8 @@ app.post('/sign', (req,res)=> {
 
                                 email : data.user.email,
                                 username: data.user.username,
-                                password:data.user.password
+                                password:data.user.password,
+                                ppurl: ''
                 
                             } ,
                             (error,result) => {
@@ -159,6 +162,7 @@ app.post('/home', (req,res)=>{
         db.collection('posts').insertOne( {
 
             username : data.post.username,
+            ppurl : myUser.ppurl,
             post : data.post.post,
             time : thisTime
 
@@ -215,6 +219,60 @@ app.get('/home/posts', (req,res) => {
     });
 
 }) 
+
+app.get('/home/pp', (req,res) => {
+
+    if(!myUser.username) {
+        res.redirect('/');
+    } else {
+        res.render('changepp');
+    }
+
+})
+
+app.post('/home/pp', (req,res) => {
+
+    const url = req.body.pp.pppath;
+
+    // console.log(url);
+
+    MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
+    
+        if(error) {
+    
+            return console.log(error);
+    
+        }
+        const db = client.db(databaseName);
+        
+        db.collection('users').findOneAndReplace({
+
+            username : myUser.username,
+
+        },{
+            email : myUser.email,
+            username: myUser.username,
+            password: myUser.password,
+            ppurl : url
+
+
+        }, (error,result)=> {
+            if(result) {
+                myUser.ppurl = url;
+                res.sendStatus(200);
+            } else {
+                console.log(error);
+                res.sendStatus(305);
+            }
+        });
+        
+    })
+})
+
+app.get('/*', (req,res) => {
+
+
+})
 
 
 app.listen(port, () => {

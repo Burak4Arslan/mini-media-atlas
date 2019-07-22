@@ -40,6 +40,11 @@ body {
     margin-bottom: 25px;
 
 }
+.mabot {
+
+    margin-top: 25px;
+
+}
 
 #mainHomeDiv {
 
@@ -70,7 +75,7 @@ body {
 
     margin-top: 10px;
     list-style-type: none;
-    margin-left: 30px;
+    margin-left: 80px;
 }
 
 .inli {
@@ -100,5 +105,28 @@ body {
 
     float : right;
 
+}
+
+.changeppDiv {
+
+    display: grid;
+    width: 300px;
+    margin: 100px auto;
+
+}
+
+#inputPicture {
+
+    width:"100px";
+    height:"100px";
+    margin: auto;
+    display: none;
+
+}
+
+.pPicture {
+
+    width:"100px";
+    height:"100px";
 
 }

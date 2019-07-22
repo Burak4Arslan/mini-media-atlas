@@ -11,7 +11,9 @@ function writer() {
         posts= posts.posts;
         for(i=posts.length-1 ; i>-1 ;i--) {
             
-            myList += '<ol class="inli"><li class="usernameList">' + posts[i].username + ' says :</li>';
+            myList += '<ol class="inli">'+
+            '<li class="usernameList"><img class="pPicture" width="30px" height="30px" src="'+ posts[i].ppurl +'">' +
+            posts[i].username + ' says :</li>';
             myList += '<li class="postList">' + posts[i].post + '</li><small class="fr">'+ posts[i].time +'</small></ol>';
         }
         document.getElementById('ulList').innerHTML = myList; 
