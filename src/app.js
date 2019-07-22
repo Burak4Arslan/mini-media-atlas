@@ -152,11 +152,15 @@ app.post('/home', (req,res)=>{
 
         
         const db = client.db(databaseName);
-        
+        const thisDate = new Date();
+        const thisTime = 'Date: ' + thisDate.getDay() +'/'+ eval('thisDate.getMonth() + 1')
+        + ' Time: ' + thisDate.getHours() +':' + thisDate.getMinutes();
+        console.log(thisTime);
         db.collection('posts').insertOne( {
 
             username : data.post.username,
-            post : data.post.post
+            post : data.post.post,
+            time : thisTime
 
         }).then( ()=> {
 
