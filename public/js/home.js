@@ -4,11 +4,16 @@ writer();
 
 function writer() {
     let posts;
+    document.getElementById('load').style.display = 'initial';
     const re = fetch('/home/posts').then(response=>response.json())
-    re.then( (data) => { posts = data}).finally(()=> {
+    re.then( (data) => { 
+        posts = data;
+        
+    }).finally(()=> {
         let i=0;
         let myList='';
         posts= posts.posts;
+        document.getElementById('load').style.display = 'none';
         for(i=posts.length-1 ; i>-1 ;i--) {
             
             myList += '<ol class="inli">'+

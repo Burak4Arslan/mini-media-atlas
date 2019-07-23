@@ -29,7 +29,7 @@ document.getElementById('changepp').addEventListener('click',()=> {
         return;
 
     }
-
+    document.getElementById('load').style.display = 'initial';
     fetch('/home/pp', {
         method: 'POST',
         headers: {
@@ -43,7 +43,7 @@ document.getElementById('changepp').addEventListener('click',()=> {
     }).then((response)=> {
         console.log(response);
         if(response.status==200) {
-
+            document.getElementById('load').style.display = 'none';
             window.location.href = '/home';
 
         } else {

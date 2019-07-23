@@ -7,7 +7,7 @@ var myUser = {};
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
-const connectionURL = 'mongodb://127.0.0.1:27017'
+const connectionURL = 'mongodb+srv://burakarslan:ba12345678ba@cluster0-9i6js.mongodb.net/test?retryWrites=true&w=majority'
 const databaseName = 'mini-media-users'
 
 const app = express();
@@ -108,7 +108,6 @@ app.post('/sign', (req,res)=> {
         
     
     })
-
 
 })
 

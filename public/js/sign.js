@@ -15,7 +15,8 @@ document.getElementById('signButton').addEventListener("click", ()=> {
 function checkParamsSign(email,username,password) {
 
     if(email && username && password) {
-
+        
+        document.getElementById('load').style.display = 'initial';
         fetch('/sign', {
             method: 'POST',
             headers: {
@@ -31,7 +32,7 @@ function checkParamsSign(email,username,password) {
         }).then( (response)=> {
 
             if(response.status==200) {
-
+                document.getElementById('load').style.display = 'none';
                 window.location.href = '/';
 
             } else {

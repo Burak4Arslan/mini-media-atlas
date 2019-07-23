@@ -12,7 +12,7 @@ document.getElementById('loginButton').addEventListener("click", ()=> {
 })
 
 function checkParamsLogin(username,password) {
-
+    document.getElementById('load').style.display = 'initial';
     if(username && password) {
 
         fetch('', {
@@ -29,7 +29,7 @@ function checkParamsLogin(username,password) {
         }).then((response)=> {
 
             if(response.status==200) {
-
+                document.getElementById('load').style.display = 'none';
                 window.location.href = response.url;
 
             } else {
