@@ -130,3 +130,24 @@ body {
     height:"100px";
 
 }
+
+
+.myAlert {
+
+    background-color: red;
+    border-radius: 30px;
+    display: none;
+    text-align: center;
+
+}
+
+
+.myLink {
+
+    background-color: cornflowerblue;
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    float : right;
+
+}

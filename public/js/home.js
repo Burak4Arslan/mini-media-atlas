@@ -26,6 +26,9 @@ function writer() {
 document.getElementById('postButton').addEventListener('click',(e)=> {
 
     const myPost = document.getElementById('postText').value;
+    if(!myPost) {
+        return;
+    }
 
     fetch('/home', {
         method: 'POST',

@@ -1,25 +1,34 @@
 
 let newpppath;
-
+var isPhoto = false; 
 window.addEventListener('keyup',(e)=> {
     newpppath = document.getElementById('inputpp').value;
-    try {
+    var pos = newpppath.indexOf("http");
+    if(pos>-1) {
         console.log(document.getElementById('inputPicture').src = newpppath);
         document.getElementById('inputPicture').style.display = 'initial';
         document.getElementById('inputPicture').style.width = '100px';
         document.getElementById('inputPicture').style.height = '100px';
-        console.log('tryladım');
-    } catch(e) {
-        console.log('catchledim');
+        isPhoto = true;
+    } else {
         document.getElementById('inputPicture').style.display = 'none';
         document.getElementById('inputPicture').style.width = '100px';
         document.getElementById('inputPicture').style.height = '100px';
-        e.preventDefault();
+        isPhoto = false;
     }
 })
 
 document.getElementById('changepp').addEventListener('click',()=> {
 
+    if(!isPhoto) {
+        const alert = document.getElementById('myAlerter')
+        alert.style.display = 'initial';
+
+        setTimeout(()=>{alert.style.display = 'none'} ,2000);
+
+        return;
+
+    }
 
     fetch('/home/pp', {
         method: 'POST',
