@@ -2,8 +2,6 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
-var myUser = {};
-
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
@@ -25,12 +23,7 @@ app.set('view engine','hbs');
 
 app.get('', (req,res)=> {
 
-    if(!myUser.username) {
-        res.render('login');
-    } else {
-        myUser = {};
-        res.render('login');
-    }
+    res.render('login');
 
 })
 
@@ -109,6 +102,7 @@ app.post('/sign', (req,res)=> {
     
     })
 
+
 })
 
 app.post('', (req,res)=>{
@@ -129,9 +123,10 @@ app.post('', (req,res)=>{
             password: data.user.password
 
         }, (error,result)=> {
-                if(result) {
-                res.redirect('/home');
-                myUser = result;
+            if(result) {
+                console.log(result)
+                res.send(JSON.stringify(result));
+
             } else {
                 res.sendStatus(301);
             }
@@ -143,7 +138,7 @@ app.post('', (req,res)=>{
 app.post('/home', (req,res)=>{
 
     const data = req.body;
-    data.post.username = myUser.username;
+    console.log(data);
     MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
     
         if(error) {
@@ -159,8 +154,8 @@ app.post('/home', (req,res)=>{
         + ' Time: ' + thisDate.getHours() +':' + thisDate.getMinutes();
         db.collection('posts').insertOne( {
 
-            username : data.post.username,
-            ppurl : myUser.ppurl,
+            username : data.user.username,
+            ppurl : data.user.ppurl,
             post : data.post.post,
             time : thisTime
 
@@ -175,25 +170,7 @@ app.post('/home', (req,res)=>{
 
 app.get('/home', (req,res)=> {
 
-    
-
-    if(myUser.username) {
-
-        res.render('home', {
-            name : myUser.username
-        });
-
-        
-        
-    } else {
-        res.redirect('/');
-        
-    }
-    // res.render('/home', {
-
-    //     name : myUser.username,
-    //     posts : myPosts
-    // });
+    res.render('home');
 
 })
 
@@ -220,19 +197,15 @@ app.get('/home/posts', (req,res) => {
 
 app.get('/home/pp', (req,res) => {
 
-    if(!myUser.username) {
-        res.redirect('/');
-    } else {
         res.render('changepp');
-    }
 
 })
 
 app.post('/home/pp', (req,res) => {
 
-    const url = req.body.pp.pppath;
+    const data = req.body;
 
-    // console.log(url);
+    console.log(data);
 
     MongoClient.connect(connectionURL,{useNewUrlParser: true}, (error,client)=> {
     
@@ -245,18 +218,18 @@ app.post('/home/pp', (req,res) => {
         
         db.collection('users').findOneAndReplace({
 
-            username : myUser.username,
+            username : data.user.username,
 
         },{
-            email : myUser.email,
-            username: myUser.username,
-            password: myUser.password,
-            ppurl : url
+            email : data.user.email,
+            username: data.user.username,
+            password: data.user.password,
+            ppurl : data.pp.pppath
 
 
         }, (error,result)=> {
             if(result) {
-                myUser.ppurl = url;
+                
                 res.sendStatus(200);
             } else {
                 console.log(error);

@@ -1,19 +1,17 @@
 
 
+// Get saved data from sessionStorage
+var theUser = sessionStorage.getItem('user');
+theUser = JSON.parse(theUser);
 writer();
 
 function writer() {
     let posts;
-    document.getElementById('load').style.display = 'initial';
     const re = fetch('/home/posts').then(response=>response.json())
-    re.then( (data) => { 
-        posts = data;
-        
-    }).finally(()=> {
+    re.then( (data) => { posts = data}).finally(()=> {
         let i=0;
         let myList='';
         posts= posts.posts;
-        document.getElementById('load').style.display = 'none';
         for(i=posts.length-1 ; i>-1 ;i--) {
             
             myList += '<ol class="inli">'+
@@ -43,13 +41,14 @@ document.getElementById('postButton').addEventListener('click',(e)=> {
         body: JSON.stringify({
             post: {
                 post: myPost
-            }
+            },
+            user : theUser
         })
     }).then( (response)=> {
 
         if(response.status==200) {
-
-            window.location.href = '/home';
+            document.getElementById('postText').value = '';
+            writer();
 
         } else {
 
