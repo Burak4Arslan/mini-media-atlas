@@ -22,7 +22,7 @@ function writer() {
         document.getElementById('ulList').innerHTML = myList; 
 
     })
-    
+    repeater = setTimeout(writer, 1000);
 }
 
 
