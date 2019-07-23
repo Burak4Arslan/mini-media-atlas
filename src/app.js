@@ -5,7 +5,7 @@ const fs = require('fs');
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
-const connectionURL = 'mongodb+srv://burakarslan:ba12345678ba@cluster0-9i6js.mongodb.net/test?retryWrites=true&w=majority'
+const connectionURL = 'mongodb+srv://burakarslan:ba12345678ba@mini-media-9i6js.mongodb.net/test?retryWrites=true&w=majority'
 const databaseName = 'mini-media-users'
 
 const app = express();
