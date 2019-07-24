@@ -87,7 +87,7 @@ app.post('/sign', (req,res)=> {
                                 }
                                     
                                 res.sendStatus(200);
-                            })
+                            }).close();
                         }
 
                     })
@@ -95,7 +95,7 @@ app.post('/sign', (req,res)=> {
 
                 }
 
-            })
+            }).close();
 
             
         
@@ -130,7 +130,7 @@ app.post('', (req,res)=>{
             } else {
                 res.sendStatus(301);
             }
-        });
+        }).close();
     })
 })
 
@@ -163,7 +163,7 @@ app.post('/home', (req,res)=>{
 
             res.sendStatus(200);
 
-        })
+        }).close();
     })
 })
 
@@ -186,13 +186,11 @@ app.get('/home/posts', (req,res) => {
     
         }
         const db = client.db(databaseName);
-        myPosts = allPost = db.collection('posts').find({}).toArray((error,posts)=> {
+        myPosts = db.collection('posts').find({}).toArray((error,posts)=> {
             myPosts = posts;
             res.send({ posts: myPosts });
-        })
-
+        }).close();
     });
-
 }) 
 
 app.get('/home/pp', (req,res) => {
@@ -235,7 +233,7 @@ app.post('/home/pp', (req,res) => {
                 console.log(error);
                 res.sendStatus(305);
             }
-        });
+        }).close();
         
     })
 })
