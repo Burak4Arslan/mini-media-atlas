@@ -3,6 +3,13 @@
 // Get saved data from sessionStorage
 var theUser = sessionStorage.getItem('user');
 theUser = JSON.parse(theUser);
+
+const homePP = document.getElementById('homePP');
+const userName = document.getElementById('userName');
+homePP.setAttribute('src',theUser.ppurl);
+userName.innerText = theUser.username;
+
+
 writer();
 
 function writer() {
