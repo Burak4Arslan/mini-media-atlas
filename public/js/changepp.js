@@ -48,6 +48,7 @@ document.getElementById('changepp').addEventListener('click',()=> {
         console.log(response);
         if(response.status==200) {
 
+            theUser.pppath = newpppath;
             window.location.href = '/home';
 
         } else {
